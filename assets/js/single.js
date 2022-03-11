@@ -15,9 +15,9 @@ var getRepoName = function() {
     }
 };
 
-var getRepoIssues = function(repoName) {
+var getRepoIssues = function(repo) {
     // format the github api url
-    var apiUrl = "https://api.github.com/repos/" + repoName + "/issues?direction=asc";
+    var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
 
     // make a get request to url
     fetch(apiUrl).then(function(response) {
@@ -29,10 +29,10 @@ var getRepoIssues = function(repoName) {
                 // check if api has paginated issues
                 if (response.headers.get("Link")) {
                     displayWarning(repo);
-                } else {
-                    document.location.replace("./index.html");
                 }
             });
+        } else {
+            document.location.replace("./index.html");
         }
     });
 };
@@ -92,4 +92,3 @@ var displayWarning = function(repo) {
 };
 
 getRepoName();
-getRepoIssues();
